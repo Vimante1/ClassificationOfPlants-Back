@@ -17,4 +17,6 @@ public interface IPlantsRepository
     Task<List<Plant>> GetPlantsBySize(double smallest, double largest);
 
     Task<List<Plant>> GetPlantsByForm();
+
+    Task<List<Plant>> GetThreeRandomPlant();
 }

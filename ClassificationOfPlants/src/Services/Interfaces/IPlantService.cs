@@ -5,9 +5,12 @@ namespace ClassificationOfPlants.src.Services.Interfaces;
 
 public interface IPlantService
 {
+    
     Task<Plant> getPlantById(int id);
     
     void CreatePlant(PlantViewModel plant);
+
+    Task<List<Plant>> GetThreeRandomPlant();
 
     Task <List<Plant>> GetPlantsByForm();
 

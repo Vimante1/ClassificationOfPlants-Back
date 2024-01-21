@@ -68,4 +68,20 @@ public class PlantRepository : BaseReporitory.BaseRepository<Plant>, IPlantsRepo
             .ToListAsync();
         return sortedDocuments;
     }
+
+    public async Task<List<Plant>> GetThreeRandomPlant()
+    {
+        long totalDocuments = await _collection.CountDocumentsAsync(FilterDefinition<Plant>.Empty);
+
+        Random random = new Random();
+        List<int> randomIndexes = Enumerable.Range(0, 3).Select(_ => random.Next((int)totalDocuments)).ToList();
+
+        List<Plant> result = new List<Plant>();
+
+        foreach (var item in randomIndexes)
+        {
+            result.Add(await _collection.Find(Builders<Plant>.Filter.Eq("_id", item)).FirstOrDefaultAsync());
+        }
+        return result;
+    }
 }

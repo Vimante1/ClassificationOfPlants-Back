@@ -28,7 +28,15 @@ namespace ClassificationOfPlants
 
             // Add services to the container.
             builder.Services.AddAuthorization();
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -45,7 +53,7 @@ namespace ClassificationOfPlants
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseCors("AllowSpecificOrigins");
             app.UseRouting();
             app.MapControllers();
             app.UseAuthorization();

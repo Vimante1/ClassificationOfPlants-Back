@@ -68,4 +68,11 @@ public class PlantController : ControllerBase
     {
         return Ok(await _service.GetPlantsByForm());
     }
+
+    [HttpGet]
+    [Route("ThreeRandom")]
+    public async Task<IActionResult> ThreeRandom()
+    {
+        return Ok(await _service.GetThreeRandomPlant());
+    }
 }

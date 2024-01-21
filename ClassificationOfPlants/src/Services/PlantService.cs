@@ -28,7 +28,7 @@ public class PlantService : IPlantService
             {
                 var fileName = $"{Guid.NewGuid()}{Path.GetExtension(plant.Image.FileName)}";
 
-                var imagePath = Path.Combine("./Images", fileName);
+                var imagePath = Path.Combine("C:/Users/Viman/OneDrive/Desktop/PlantPhoto", fileName);
 
                 using (var stream = new FileStream(imagePath, FileMode.Create))
                 {
@@ -57,6 +57,11 @@ public class PlantService : IPlantService
 
         
         _repository.CreatePlant(outPlant);
+    }
+
+    public async Task<List<Plant>> GetThreeRandomPlant()
+    {
+        return await _repository.GetThreeRandomPlant();
     }
 
     public async Task<List<Plant>> GetPlantsByForm()
