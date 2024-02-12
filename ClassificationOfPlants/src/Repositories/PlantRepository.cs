@@ -2,13 +2,13 @@
 using ClassificationOfPlants.src.Repositories.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Xml.Linq;
 
 namespace ClassificationOfPlants.src.Repositories;
 
 public class PlantRepository : BaseReporitory.BaseRepository<Plant>, IPlantsRepository
 {
     public PlantRepository(IMongoDbSettings settings) : base(settings, "Plant") { }
-
 
     public async Task<Plant> getPlantById(int id)
     {
@@ -69,6 +69,13 @@ public class PlantRepository : BaseReporitory.BaseRepository<Plant>, IPlantsRepo
         return sortedDocuments;
     }
 
+    public async Task<List<Plant>> GetPlantsByForm(string formName)
+    {
+        var filter = Builders<Plant>.Filter.Regex("Form", new BsonRegularExpression(formName, "i"));
+        var plant = await _collection.Find(filter).ToListAsync();
+        return plant;
+    }
+
     public async Task<List<Plant>> GetThreeRandomPlant()
     {
         long totalDocuments = await _collection.CountDocumentsAsync(FilterDefinition<Plant>.Empty);
@@ -83,5 +90,12 @@ public class PlantRepository : BaseReporitory.BaseRepository<Plant>, IPlantsRepo
             result.Add(await _collection.Find(Builders<Plant>.Filter.Eq("_id", item)).FirstOrDefaultAsync());
         }
         return result;
+    }
+
+    public async Task<List<Plant>> GetPlantsByName(string name)
+    {
+        var filter = Builders<Plant>.Filter.Regex("Name", new BsonRegularExpression(name, "i"));
+        var plant = await _collection.Find(filter).ToListAsync();
+        return plant;
     }
 }

@@ -13,7 +13,7 @@ public interface IPlantService
     Task<List<Plant>> GetThreeRandomPlant();
 
     Task <List<Plant>> GetPlantsByForm();
-
+    Task<List<Plant>> GetPlantsByForm(string formName);
     Task<List<Plant>>GetPlantsByGrowthLocation();
     
     Task <List<Plant>> GetPlantsByGrowthLocation(string location);
@@ -32,4 +32,6 @@ public interface IPlantService
     /// <param name="largest">The largest value to search for</param>
     /// <returns></returns>
     Task<List<Plant>> GetPlantsBySize(double smallest, double largest);
+
+    Task<List<Plant>> GetPlantsByName(string name);
 }

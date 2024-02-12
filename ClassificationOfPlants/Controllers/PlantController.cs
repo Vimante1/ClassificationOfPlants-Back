@@ -70,9 +70,23 @@ public class PlantController : ControllerBase
     }
 
     [HttpGet]
+    [Route("GetPlantsByFormHandler")]
+    public async Task<IActionResult> GetPlantsByForm(string formName)
+    {
+        return Ok(await _service.GetPlantsByForm(formName));
+    }
+
+    [HttpGet]
     [Route("ThreeRandom")]
     public async Task<IActionResult> ThreeRandom()
     {
         return Ok(await _service.GetThreeRandomPlant());
+    }
+
+    [HttpGet]
+    [Route("SearchPlantByName")]
+    public async Task<IActionResult> SearchPlantByName(string name)
+    {
+        return Ok(await _service.GetPlantsByName(name));
     }
 }

@@ -34,6 +34,7 @@ public class PlantService : IPlantService
                 {
                     plant.Image.CopyTo(stream);
                 }
+
                 outPlant = new Plant()
                 {
                     _id = plant._id,
@@ -55,7 +56,7 @@ public class PlantService : IPlantService
             Console.WriteLine("Something Wrong");
         }
 
-        
+
         _repository.CreatePlant(outPlant);
     }
 
@@ -69,7 +70,12 @@ public class PlantService : IPlantService
         return await _repository.GetPlantsByForm();
     }
 
-    public async Task<List<Plant>> GetPlantsByGrowthLocation()
+    public async Task<List<Plant>> GetPlantsByForm(string formName)
+    {
+        return await _repository.GetPlantsByForm(formName);
+    }
+
+public async Task<List<Plant>> GetPlantsByGrowthLocation()
     {
         return await _repository.GetPlantsByGrowthLocation();
     }
@@ -87,5 +93,10 @@ public class PlantService : IPlantService
     public async Task<List<Plant>> GetPlantsBySize(double smallest, double largest)
     {
         return await _repository.GetPlantsBySize(smallest, largest);
+    }
+
+    public async Task<List<Plant>> GetPlantsByName(string name)
+    {
+        return await _repository.GetPlantsByName(name);
     }
 }
